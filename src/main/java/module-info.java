@@ -12,7 +12,8 @@ module com.library.library {
 
     opens com.java.library to javafx.fxml;
     opens com.java.library.fxml to javafx.fxml;
-    opens com.java.library.controller to javafx.fxml;
     opens com.java.library.models to javafx.base;
     exports com.java.library;
+    opens com.java.library.controller.book to javafx.fxml;
+    opens com.java.library.controller.user to javafx.fxml;
 }

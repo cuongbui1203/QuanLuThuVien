@@ -1,4 +1,4 @@
-package com.java.library.controller;
+package com.java.library.controller.book;
 
 import com.java.Database.DBHandle;
 import com.java.library.models.Book;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class BookListController implements Initializable {
+public class ListController implements Initializable {
     private DBHandle dbHandle;
     private ObservableList<Book> booksList;
     @FXML

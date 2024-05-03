@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="452.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.java.library.controller.user.ListController">
+   <Label text="Danh sách Tài khoản">
+      <font>
+         <Font size="19.0"/>
+      </font>
+   </Label>
+   <TableView fx:id="accountTable" prefHeight="429.0" prefWidth="600.0">
+      <columns>
+         <TableColumn fx:id="idCol" editable="false" prefWidth="55.0" text="ID"/>
+         <TableColumn fx:id="nameCol" editable="false" prefWidth="146.0" text="Tên"/>
+         <TableColumn fx:id="emailCol" editable="false" prefWidth="211.0" text="Email"/>
+         <TableColumn fx:id="ageCol" editable="false" prefWidth="82.0" text="Tuổi"/>
+         <TableColumn fx:id="roleCol" editable="false" prefWidth="105.0" text="Quyền"/>
+      </columns>
+   </TableView>
+</VBox>

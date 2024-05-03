@@ -32,4 +32,4 @@ CREATE TABLE IF NOT EXISTS user (
   role_id INTEGER NOT NULL DEFAULT 0
 );
 
-INSERT INTO user VALUES (1, 'cuong', 'admin@gmail.com', 'password',22,1);
+INSERT INTO user VALUES (1, 'cuong', 'admin@gmail.com', '$2a$10$MBbkdSITk.yDAI1BIxpw0OIB8ne0tam2Vo1JewgMcVGIjor3dmKPO',22,1);

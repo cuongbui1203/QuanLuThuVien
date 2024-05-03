@@ -24,18 +24,22 @@ public class MainController implements Initializable {
 
     @FXML
     public void onListBooks() throws IOException {
-        Pane loginPanel = FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("listBook.fxml")));
-        main.getChildren().add(loginPanel);
+        Pane listBook = FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("listBook.fxml")));
+        main.getChildren().clear();
+        main.getChildren().add(listBook);
     }
 
     @FXML
-    public void onSearchBook(){
-        //
+    public void onSearchBook() throws IOException {
+        Pane searchBook = FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("searchBook.fxml")));
+        main.getChildren().clear();
+        main.getChildren().add(searchBook);
     }
 
     @FXML
-    public void onListAccounts(){
-        //
+    public void onListAccounts() throws IOException {
+        main.getChildren().clear();
+        main.getChildren().add(FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("listAccount.fxml"))));
     }
 
     @FXML
@@ -51,7 +55,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHolder dataHolder = DataHolder.getInstance();
-        ruleName.setText(dataHolder.getUser().getRole() == 1 ? "Admin":"User");
+        ruleName.setText(dataHolder.getUser().getRole());
         accountName.setText(dataHolder.getUser().getName());
     }
 }

@@ -49,8 +49,8 @@ public class User {
         this.email = email;
     }
 
-    public int getRole() {
-        return role;
+    public String getRole() {
+        return role == 1 ? "Admin":"User";
     }
 
     public void setRole(int role) {

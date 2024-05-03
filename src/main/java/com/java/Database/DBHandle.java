@@ -17,7 +17,7 @@ public class DBHandle {
     }
 
     private DBHandle(){
-        String url = "jdbc:sqlite:" + ModelSql.class.getResource("database.db").getPath();
+        String url = "jdbc:sqlite:res/database/database.db";
         try {
             this.conn = DriverManager.getConnection(url);
             this.statement = this.conn.createStatement();
@@ -103,7 +103,7 @@ public class DBHandle {
         preparedStatement.setString(3, book.getDesc());
         preparedStatement.setInt(4,book.getAmount());
 
-        preparedStatement.execute();
+        preparedStatement.executeUpdate();
     }
 
     public boolean delete(String table,int id) throws SQLException {
@@ -111,5 +111,18 @@ public class DBHandle {
         PreparedStatement preparedStatement = conn.prepareStatement(query);
         preparedStatement.setInt(1,id);
         return preparedStatement.execute();
+    }
+
+    public ResultSet searchBook(String name)throws SQLException {
+        String query = "SELECT * FROM book WHERE name LIKE '%"+name+"%'";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+//        preparedStatement.setString(1,name);
+        return preparedStatement.executeQuery();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        DBHandle dbHandle = DBHandle.getInstance();
+        System.out.println(dbHandle.conn.getSchema());
+        System.out.println(dbHandle.all("book"));
     }
 }

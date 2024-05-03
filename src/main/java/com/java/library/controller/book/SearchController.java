@@ -1,4 +1,4 @@
-package com.java.library.controller;
+package com.java.library.controller.book;
 
 import com.java.Database.DBHandle;
 import com.java.library.models.Book;
@@ -12,9 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class BookSearchController implements Initializable {
+public class SearchController implements Initializable {
     private DBHandle dbHandle;
     private ObservableList<Book> booksList;
     @FXML
@@ -42,7 +44,20 @@ public class BookSearchController implements Initializable {
     }
 
     @FXML
-    public void search(){
-
+    public void search() throws SQLException {
+        String name = nameText.getText();
+        System.out.println(name);
+        ResultSet bookRes = dbHandle.searchBook(name);
+        booksList.clear();
+        while (bookRes.next()){
+            booksList.add(
+                    new Book(
+                            bookRes.getInt("id"),
+                            bookRes.getString("name"),
+                            bookRes.getString("author"),
+                            bookRes.getInt("amount"),
+                            bookRes.getString("description")
+                    ));
+        }
     }
 }
