@@ -1,24 +1,31 @@
 package com.java.library;
 
-import javafx.event.ActionEvent;
+import com.java.library.fxml.FxmlFile;
+import com.java.library.models.DataHolder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
     @FXML
-    AnchorPane main;
-
-
+    private AnchorPane main;
+    @FXML
+    private Label ruleName;
+    @FXML
+    private Label accountName;
 
     @FXML
-    public void onListBooks(){
-
+    public void onListBooks() throws IOException {
+        Pane loginPanel = FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("listBook.fxml")));
+        main.getChildren().add(loginPanel);
     }
 
     @FXML
@@ -41,15 +48,10 @@ public class MainController {
 
     }
 
-    @FXML
-    public void onLogin(){
-        try {
-            Pane loginPanel = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
-            main.getChildren().add(loginPanel);
-            System.out.print("main:::");
-            System.out.println(main.getScene().getWindow().getUserData());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        DataHolder dataHolder = DataHolder.getInstance();
+        ruleName.setText(dataHolder.getUser().getRole() == 1 ? "Admin":"User");
+        accountName.setText(dataHolder.getUser().getName());
     }
 }

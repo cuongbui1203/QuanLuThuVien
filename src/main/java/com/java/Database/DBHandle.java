@@ -2,6 +2,7 @@ package com.java.Database;
 
 
 import com.java.Hash.BCrypt;
+import com.java.library.models.Book;
 import com.java.library.models.User;
 
 import java.sql.*;
@@ -83,9 +84,32 @@ public class DBHandle {
                     );
                 }
             }
+            return null;
         } catch (SQLException e) {
             return null;
         }
-            return null;
+    }
+
+    public ResultSet all(String table) throws SQLException {
+        String query = "SELECT * FROM "+table;
+        return statement.executeQuery(query);
+    }
+
+    public void insert(Book book) throws SQLException {
+        String sql = "INSERT INTO book(name,author,description,amount) VALUES (?,?,?,?)";
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setString(1, book.getName());
+        preparedStatement.setString(2, book.getAuthor());
+        preparedStatement.setString(3, book.getDesc());
+        preparedStatement.setInt(4,book.getAmount());
+
+        preparedStatement.execute();
+    }
+
+    public boolean delete(String table,int id) throws SQLException {
+        String query = "DELETE FROM "+table+" WHERE id=?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1,id);
+        return preparedStatement.execute();
     }
 }

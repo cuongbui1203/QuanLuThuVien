@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.MainController">
+   <top>
+       <MenuBar BorderPane.alignment="CENTER">
+           <Menu mnemonicParsing="false" text="Người dùng">
+               <MenuItem mnemonicParsing="false" onAction="#onListAccounts" text="Danh sách người đọc" />
+               <MenuItem mnemonicParsing="false" onAction="#addNewAccount" text="Thêm mới" />
+           </Menu>
+           <Menu mnemonicParsing="false" text="Sách">
+               <MenuItem mnemonicParsing="false" onAction="#onListBooks" text="Danh sách sách" />
+               <MenuItem mnemonicParsing="false" onAction="#onSearchBook" text="Tìm kiếm sách" />
+           </Menu>
+           <Menu mnemonicParsing="false" text="Thống kê">
+               <MenuItem mnemonicParsing="false" onAction="#onStatistical" text="Thống kê mượn trả" />
+           </Menu>
+       </MenuBar>
+   </top>
+   <center>
+            <VBox alignment="CENTER" BorderPane.alignment="TOP_CENTER">
+         <Label text="Quản lý thư viện">
+            <font>
+               <Font size="38.0" />
+            </font>
+         </Label>
+         <HBox alignment="TOP_RIGHT" prefWidth="200.0" spacing="20.0">
+            <children>
+               <Label fx:id="ruleName" text="rule" />
+               <Label fx:id="accountName" text="account name" />
+            </children>
+            <padding>
+               <Insets right="20.0" />
+            </padding>
+         </HBox>
+      <AnchorPane fx:id="main" prefHeight="452.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+            </VBox>
+   </center>
+</BorderPane>
