@@ -1,6 +1,6 @@
 package com.java.library;
 
-import com.java.Database.DBHandle;
+import com.java.database.DBHandle;
 import com.java.library.fxml.FxmlFile;
 import com.java.library.models.DataHolder;
 import com.java.library.models.User;

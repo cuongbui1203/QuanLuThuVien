@@ -1,4 +1,4 @@
-package com.java.Hash;
+package com.java.hash;
 
 // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 //
@@ -751,6 +751,6 @@ public class BCrypt {
     }
 
     public static void main(String[] args) {
-        System.out.println(BCrypt.hashpw("password",BCrypt.gensalt()));
+        System.out.println(BCrypt.hashpw("1",BCrypt.gensalt()));
     }
 }

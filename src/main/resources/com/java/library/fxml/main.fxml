@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.MainController">
    <top>
        <MenuBar BorderPane.alignment="CENTER">
            <Menu mnemonicParsing="false" text="Người dùng">
@@ -22,6 +22,12 @@
                <MenuItem mnemonicParsing="false" onAction="#onListBooks" text="Danh sách sách" />
                <MenuItem mnemonicParsing="false" onAction="#onSearchBook" text="Tìm kiếm sách" />
            </Menu>
+         <Menu mnemonicParsing="false" text="Loại sách">
+            <items>
+               <MenuItem mnemonicParsing="false" onAction="#onListBookCategory" text="Danh sách" />
+               <MenuItem mnemonicParsing="false" onAction="#onSearchBookOverCategory" text="Tìm kiếm sách theo thể loại" />
+            </items>
+         </Menu>
            <Menu mnemonicParsing="false" text="Thống kê">
                <MenuItem mnemonicParsing="false" onAction="#onStatistical" text="Thống kê mượn trả" />
            </Menu>
@@ -43,7 +49,7 @@
                <Insets right="20.0" />
             </padding>
          </HBox>
-      <AnchorPane fx:id="main" prefHeight="452.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="main" prefHeight="452.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
             </VBox>
    </center>
 </BorderPane>

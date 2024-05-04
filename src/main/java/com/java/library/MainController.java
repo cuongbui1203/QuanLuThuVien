@@ -5,9 +5,12 @@ import com.java.library.models.DataHolder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +24,12 @@ public class MainController implements Initializable {
     private Label ruleName;
     @FXML
     private Label accountName;
+
+    @FXML
+    public void onListBookCategory() throws IOException {
+        main.getChildren().clear();
+        main.getChildren().add(FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("listCategoryBook.fxml"))));
+    }
 
     @FXML
     public void onListBooks() throws IOException {
@@ -43,8 +52,17 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void addNewAccount(){
-        //
+    public void addNewAccount() throws IOException {
+        Stage mainStage =(Stage) main.getScene().getWindow();
+        FXMLLoader register = new FXMLLoader(Objects.requireNonNull(FxmlFile.class.getResource("register.fxml")));
+        Scene scene = new Scene(register.load());
+        Stage stage = new Stage();
+        stage.setTitle("Đăng ký");
+        stage.initOwner(mainStage);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.showAndWait();
     }
 
     @FXML
@@ -52,10 +70,21 @@ public class MainController implements Initializable {
 
     }
 
+    @FXML
+    public void onSearchBookOverCategory() throws IOException {
+        main.getChildren().clear();
+        main.getChildren().add(FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("searchBookOverCategory.fxml"))));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DataHolder dataHolder = DataHolder.getInstance();
         ruleName.setText(dataHolder.getUser().getRole());
         accountName.setText(dataHolder.getUser().getName());
+        try {
+            this.onListBooks();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

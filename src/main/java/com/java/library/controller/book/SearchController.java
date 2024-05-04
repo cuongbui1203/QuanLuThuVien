@@ -1,7 +1,8 @@
 package com.java.library.controller.book;
 
-import com.java.Database.DBHandle;
+import com.java.database.DBHandle;
 import com.java.library.models.Book;
+import com.java.library.models.BookCategory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SearchController implements Initializable {
@@ -31,6 +33,8 @@ public class SearchController implements Initializable {
     private TableColumn<Book,Integer> amountCol;
     @FXML
     private TextField nameText;
+    @FXML
+    private TableColumn<Book,String> categoriesCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,6 +44,7 @@ public class SearchController implements Initializable {
         authorCol.setCellValueFactory(new PropertyValueFactory<Book,String>("author"));
         descCol.setCellValueFactory(new PropertyValueFactory<Book,String>("desc"));
         amountCol.setCellValueFactory(new PropertyValueFactory<Book,Integer>("amount"));
+        categoriesCol.setCellValueFactory(new PropertyValueFactory<Book,String>("categoriesString"));
         bookTable.setItems(booksList);
     }
 
@@ -50,14 +55,20 @@ public class SearchController implements Initializable {
         ResultSet bookRes = dbHandle.searchBook(name);
         booksList.clear();
         while (bookRes.next()){
-            booksList.add(
-                    new Book(
-                            bookRes.getInt("id"),
-                            bookRes.getString("name"),
-                            bookRes.getString("author"),
-                            bookRes.getInt("amount"),
-                            bookRes.getString("description")
-                    ));
+            Book newBook = new Book(
+                    bookRes.getInt("id"),
+                    bookRes.getString("name"),
+                    bookRes.getString("author"),
+                    bookRes.getInt("amount"),
+                    bookRes.getString("description")
+            );
+            ResultSet categoryRes = dbHandle.getAllCategories(newBook);
+            ArrayList<BookCategory> categories = new ArrayList<>();
+            while (categoryRes.next()){
+                categories.add(new BookCategory(categoryRes.getInt("id"),categoryRes.getString("name")));
+            }
+            newBook.setCategories(categories);
+            booksList.add(newBook);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.java.library.controller.user;
 
-import com.java.Database.DBHandle;
+import com.java.database.DBHandle;
 import com.java.library.models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +33,7 @@ public class ListController implements Initializable {
 
     private void loadData(){
         try {
-            ResultSet res = dbHandle.all("user");
+            ResultSet res = dbHandle.all(DBHandle.USERS);
             accountList.clear();
             while (res.next()){
                 accountList.add(

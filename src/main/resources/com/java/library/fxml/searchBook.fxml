@@ -9,25 +9,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.2"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.controller.book.SearchController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.controller.book.SearchController">
    <Label text="Tìm kiếm">
       <font>
-         <Font size="33.0"/>
+         <Font size="33.0" />
       </font>
    </Label>
    <HBox alignment="CENTER" prefWidth="200.0" spacing="10.0">
-      <Label text="Tên sách"/>
-      <TextField fx:id="nameText" prefHeight="25.0" prefWidth="204.0"/>
-      <Button mnemonicParsing="false" onAction="#search" text="Tìm"/>
+      <Label text="Tên sách" />
+      <TextField fx:id="nameText" prefHeight="25.0" prefWidth="204.0" />
+      <Button mnemonicParsing="false" onAction="#search" text="Tìm" />
    </HBox>
-   <TableView fx:id="bookTable" prefHeight="366.0" prefWidth="420.0">
+   <TableView fx:id="bookTable" prefHeight="411.0" prefWidth="800.0">
       <columns>
-         <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Tên sách"/>
-         <TableColumn fx:id="authorCol" editable="false" prefWidth="75.0" text="Tên tác giả"/>
-         <TableColumn fx:id="amountCol" editable="false" prefWidth="75.0" sortable="false" text="Số lượng"/>
-         <TableColumn fx:id="descCol" editable="false" prefWidth="374.0" sortable="false" text="Mô tả"/>
+         <TableColumn fx:id="nameCol" editable="false" prefWidth="123.0" resizable="false" text="Tên sách" />
+         <TableColumn fx:id="categoriesCol" editable="false" prefWidth="127.0" resizable="false" sortable="false" text="Thể loại" />
+         <TableColumn fx:id="authorCol" editable="false" prefWidth="174.0" resizable="false" text="Tên tác giả" />
+         <TableColumn fx:id="amountCol" editable="false" prefWidth="61.0" resizable="false" sortable="false" text="Số lượng" />
+         <TableColumn fx:id="descCol" editable="false" prefWidth="314.0" resizable="false" sortable="false" text="Mô tả" />
       </columns>
    </TableView>
 </VBox>

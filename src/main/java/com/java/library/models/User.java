@@ -1,6 +1,6 @@
 package com.java.library.models;
 
-import com.java.Database.DBHandle;
+import com.java.database.DBHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,6 +20,7 @@ public class User {
         this.email = email;
         this.role = role;
     }
+    public User(){}
 
     public int getId() {
         return id;
@@ -52,24 +53,11 @@ public class User {
     public String getRole() {
         return role == 1 ? "Admin":"User";
     }
-
+    public int getRoleId(){
+        return role;
+    }
     public void setRole(int role) {
         this.role = role;
-    }
-
-    public void save(DBHandle handler){
-        String query = "UPDATE user SET name=?,email=?,age=?,role=? WHERE id=?";
-        try {
-            PreparedStatement statement = handler.getConn().prepareStatement(query);
-            statement.setString(1,name);
-            statement.setString(2,email);
-            statement.setInt(3,age);
-            statement.setInt(4,role);
-            statement.setInt(5,id);
-            statement.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override

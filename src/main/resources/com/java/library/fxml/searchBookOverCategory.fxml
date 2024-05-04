@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.controller.bookCategory.SearchBookController">
+   <Label text="Tìm theo thể loại">
+      <font>
+         <Font size="29.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="20.0" />
+      </VBox.margin>
+   </Label>
+   <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+      <Label text="Thể Loại" />
+      <CheckComboBox fx:id="categoriesChoice" prefWidth="150.0" />
+   </HBox>
+   <TableView fx:id="bookTable" prefHeight="411.0" prefWidth="800.0">
+      <columns>
+         <TableColumn fx:id="nameCol" editable="false" prefWidth="123.0" resizable="false" text="Tên sách" />
+         <TableColumn fx:id="categoriesCol" editable="false" prefWidth="127.0" resizable="false" sortable="false" text="Thể loại" />
+         <TableColumn fx:id="authorCol" editable="false" prefWidth="174.0" resizable="false" text="Tên tác giả" />
+         <TableColumn fx:id="amountCol" editable="false" prefWidth="61.0" resizable="false" sortable="false" text="Số lượng" />
+         <TableColumn fx:id="descCol" editable="false" prefWidth="314.0" resizable="false" sortable="false" text="Mô tả" />
+      </columns>
+   </TableView>
+</VBox>
