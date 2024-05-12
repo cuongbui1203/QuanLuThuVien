@@ -4,13 +4,13 @@ package com.java.database;
 import com.java.hash.BCrypt;
 import com.java.library.models.Book;
 import com.java.library.models.BookCategory;
+import com.java.library.models.Rent;
 import com.java.library.models.User;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class DBHandle implements AutoCloseable {
     private static DBHandle instance;
@@ -166,6 +166,15 @@ public class DBHandle implements AutoCloseable {
         preparedStatement.setInt(4,user.getAge());
         preparedStatement.setInt(5,user.getRoleId());
 
+        preparedStatement.executeUpdate();
+    }
+
+    public void insert(@NotNull Rent rent) throws SQLException {
+        String sql = MessageFormat.format("INSERT INTO {0}(book_id,user_id,rent_date) VALUES (?,?,?)", DBHandle.RENTS);
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1,rent.getBookId());
+        preparedStatement.setInt(2,rent.getUserId());
+        preparedStatement.setTimestamp(3,rent.getRentDate());
         preparedStatement.executeUpdate();
     }
 

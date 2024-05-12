@@ -66,14 +66,21 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void onStatistical(){
-
+    public void onStatistical() throws IOException {
+        main.getChildren().clear();
+        main.getChildren().add(FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("statistical.fxml"))));
     }
 
     @FXML
     public void onSearchBookOverCategory() throws IOException {
         main.getChildren().clear();
         main.getChildren().add(FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("searchBookOverCategory.fxml"))));
+    }
+
+    @FXML
+    public void onRentBook() throws IOException {
+        main.getChildren().clear();
+        main.getChildren().add(FXMLLoader.load(Objects.requireNonNull(FxmlFile.class.getResource("rentBook.fxml"))));
     }
 
     @Override

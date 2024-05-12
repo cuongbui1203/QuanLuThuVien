@@ -71,8 +71,7 @@ public class ListController implements Initializable {
 
                 booksList.add(newBook);
             }
-        } catch (SQLException e) {
-            return;
+        } catch (SQLException ignored) {
         }
 
     }
@@ -94,7 +93,7 @@ public class ListController implements Initializable {
             while (res.next()){
                 categoriesList.add(new BookCategory(res.getInt("id"),res.getString("name")));
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
 
         categoriesChoice = new CheckComboBox<>(categoriesList);
@@ -125,7 +124,7 @@ public class ListController implements Initializable {
             descText.setText("");
             amountText.setText("0");
             categoriesChoice.getCheckModel().clearChecks();
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         } finally {
             loadData();
         }

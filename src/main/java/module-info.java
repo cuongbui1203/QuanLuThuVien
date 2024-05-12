@@ -15,6 +15,8 @@ module com.library.library {
     opens com.java.library.controller.book to javafx.fxml;
     opens com.java.library.controller.user to javafx.fxml;
     opens com.java.library.controller.bookCategory to javafx.fxml;
+    opens com.java.library.controller.statistical to javafx.fxml;
+    opens com.java.library.controller.rent to javafx.fxml;
     opens com.java.library.models to javafx.base;
     exports com.java.library;
 }
