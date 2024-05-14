@@ -1,7 +1,6 @@
 package com.java.library.models;
 
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -9,15 +8,19 @@ public class Rent {
     private int id;
     private int bookId;
     private int userId;
+    private String userName;
+    private String bookName;
     private Timestamp rentDate;
-    private Date returnDate;
+    private Timestamp returnDate;
 
     public Rent(){}
 
-    public Rent(int id, int bookId, int userId) {
+    public Rent(int id, int bookId,String bookName, int userId,String userName) {
         this.id = id;
         this.bookId = bookId;
         this.userId = userId;
+        this.bookName = bookName;
+        this.userName = userName;
         rentDate = new Timestamp(Calendar.getInstance().getTime().getTime());
     }
     public Rent( int bookId, int userId) {
@@ -58,11 +61,20 @@ public class Rent {
         this.rentDate = rentDate;
     }
 
-    public Date getReturnDate() {
+    public Timestamp getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(Timestamp returnDate) {
         this.returnDate = returnDate;
     }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.controller.rent.ListController">
+   <children>
+      <Label text="Danh sách">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <TableView fx:id="rentTable" prefHeight="349.0" prefWidth="800.0">
+         <columns>
+            <TableColumn fx:id="userNameCol" prefWidth="164.0" text="Tên" />
+            <TableColumn fx:id="bookNameCol" prefWidth="216.0" text="Tên sách" />
+            <TableColumn fx:id="rentDateCol" prefWidth="213.0" text="Ngày mượn" />
+            <TableColumn fx:id="returnDateCol" prefWidth="206.0" text="Ngày trả" />
+         </columns>
+      </TableView>
+   </children>
+</VBox>

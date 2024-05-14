@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.controller.user.ListController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.controller.user.ListController">
    <Label text="Danh sách Tài khoản">
       <font>
          <Font size="19.0" />
       </font>
    </Label>
+   <HBox alignment="TOP_RIGHT">
+      <children>
+         <Button mnemonicParsing="false" onAction="#edit" text="edit">
+            <HBox.margin>
+               <Insets right="10.0" />
+            </HBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#refresh" text="Refresh">
+            <HBox.margin>
+               <Insets right="50.0" />
+            </HBox.margin>
+         </Button>
+      </children>
+   </HBox>
    <TableView fx:id="accountTable" prefHeight="429.0" prefWidth="600.0">
       <columns>
          <TableColumn fx:id="idCol" editable="false" prefWidth="55.0" text="ID" />

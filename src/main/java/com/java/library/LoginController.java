@@ -37,19 +37,23 @@ public class LoginController implements Initializable {
     public void handleLogin(ActionEvent e) throws IOException {
         User user = handler.login(email.getText(),password.getText());
         Stage stage = (Stage) (((Node) e.getSource()).getScene().getWindow());
+        Alert alert = new Alert(Alert.AlertType.ERROR,"");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.initOwner(stage);
         if(user == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,"");
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.initOwner(stage);
             alert.getDialogPane().setHeaderText("Login fail");
             alert.getDialogPane().setContentText("try agent");
-            alert.showAndWait();
         }else{
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.getDialogPane().setHeaderText("Login success");
+            alert.getDialogPane().setContentText("Đăng nhập thành công");
             DataHolder dataHolder = DataHolder.getInstance();
             dataHolder.setUser(user);
             FXMLLoader main = new FXMLLoader(Objects.requireNonNull(FxmlFile.class.getResource("main.fxml")));
             stage.setScene(new Scene(main.load()));
         }
+        alert.showAndWait();
+
     }
 
     @Override

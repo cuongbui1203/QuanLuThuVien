@@ -22,6 +22,10 @@ public class Book {
     public Book() {
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -78,7 +82,6 @@ public class Book {
         this.categories = categories;
         StringBuilder buffer = new StringBuilder();
         int size = categories.size();
-        System.out.println(size);
         for (int i = 0;i< size-1;i++){
             buffer.append(categories.get(i).getName());
             buffer.append(", ");

@@ -2,6 +2,7 @@ package com.java.library.models;
 
 public class DataHolder {
     private User user;
+    private int IdChange;
     private DataHolder(){}
     private final static DataHolder INSTANCE = new DataHolder();
 
@@ -15,5 +16,13 @@ public class DataHolder {
 
     public User getUser() {
         return user;
+    }
+
+    public int getIdChange() {
+        return IdChange;
+    }
+
+    public void setIdChange(int idChange) {
+        IdChange = idChange;
     }
 }

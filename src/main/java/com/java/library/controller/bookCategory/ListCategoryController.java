@@ -2,6 +2,7 @@ package com.java.library.controller.bookCategory;
 
 import com.java.database.DBHandle;
 import com.java.library.models.BookCategory;
+import com.java.library.models.DataHolder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -29,6 +31,8 @@ public class ListCategoryController implements Initializable {
     private TableColumn<BookCategory,String> nameCol;
     @FXML
     private TableColumn<BookCategory,Integer> amountCol;
+    @FXML
+    private VBox addCategory;
 
     private void loadData(){
         bookCategories.clear();
@@ -45,6 +49,7 @@ public class ListCategoryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bookCategories = FXCollections.observableArrayList();
+        addCategory.setVisible(DataHolder.getInstance().getUser().getRoleId() == 1);
         dbHandle = DBHandle.getInstance();
         idCol.setCellValueFactory(new PropertyValueFactory<BookCategory,Integer>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<BookCategory,String>("name"));

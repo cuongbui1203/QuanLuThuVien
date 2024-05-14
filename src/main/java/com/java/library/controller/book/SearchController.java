@@ -51,7 +51,6 @@ public class SearchController implements Initializable {
     @FXML
     public void search() throws SQLException {
         String name = nameText.getText();
-        System.out.println(name);
         ResultSet bookRes = dbHandle.searchBook(name);
         booksList.clear();
         while (bookRes.next()){

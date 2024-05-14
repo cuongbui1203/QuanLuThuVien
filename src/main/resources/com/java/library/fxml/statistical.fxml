@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,14 +12,6 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <ScrollPane prefHeight="401.0" prefWidth="800.0">
-         <content>
-            <VBox prefHeight="765.0" prefWidth="785.0">
-               <children>
-                  <PieChart fx:id="overallChart" prefHeight="400.0" prefWidth="800.0" />
-               </children>
-            </VBox>
-         </content>
-      </ScrollPane>
+      <ScrollPane fx:id="main" prefHeight="401.0" prefWidth="800.0" />
    </children>
 </VBox>

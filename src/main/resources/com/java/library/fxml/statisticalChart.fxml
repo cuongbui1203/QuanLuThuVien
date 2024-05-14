@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" prefHeight="765.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java.library.controller.statistical.ChartController">
+   <children>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Label text="Tổng số sách mươn" />
+            <Label fx:id="rentText" text="Label" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Label text="Tổng số sách trả" />
+            <Label fx:id="returnText" text="Label" />
+         </children>
+      </HBox>
+      <PieChart fx:id="overallChart" prefHeight="400.0" prefWidth="800.0" />
+   </children>
+</VBox>

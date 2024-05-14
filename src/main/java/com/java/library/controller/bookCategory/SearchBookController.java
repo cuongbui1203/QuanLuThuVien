@@ -92,7 +92,6 @@ public class SearchBookController implements Initializable {
         categoriesChoice.getCheckModel().getCheckedItems().addListener(new WeakListChangeListener<BookCategory>(new ListChangeListener<BookCategory>() {
             @Override
             public void onChanged(Change<? extends BookCategory> change) {
-                System.out.println("change");
                 onSearch();
             }
         }));
@@ -100,7 +99,6 @@ public class SearchBookController implements Initializable {
     }
 
     public void onSearch(){
-        System.out.println("test");
         ArrayList<Integer> ids = new ArrayList<>();
         LinkedList<BookCategory> categories = new LinkedList<>(categoriesChoice.getCheckModel().getCheckedItems());
         categories.forEach(e->{

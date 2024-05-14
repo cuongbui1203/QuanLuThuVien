@@ -4,10 +4,17 @@ import com.java.database.DBHandle;
 import com.java.formatter.NumberStringFilteredConverter;
 import com.java.library.models.Book;
 import com.java.library.models.BookCategory;
+import com.java.library.models.DataHolder;
+import com.java.library.models.Rent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
@@ -22,6 +29,7 @@ import java.util.ResourceBundle;
 public class ListController implements Initializable {
     private DBHandle dbHandle;
     private ObservableList<Book> booksList;
+    private Book selectedBook;
     @FXML
     private TableView<Book>  bookTable;
     @FXML
@@ -46,6 +54,8 @@ public class ListController implements Initializable {
     private Button addBtn;
     @FXML
     private Button deleteBtn;
+    @FXML
+    private Button rentBtn;
     @FXML
     private HBox hBox;
     private CheckComboBox<BookCategory> categoriesChoice;
@@ -78,8 +88,10 @@ public class ListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        rentBtn.setVisible(DataHolder.getInstance().getUser().getRoleId()==2);
         booksList = FXCollections.observableArrayList();
         dbHandle = DBHandle.getInstance();
+        selectedBook = new Book();
         nameCol.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
         authorCol.setCellValueFactory(new PropertyValueFactory<Book,String>("author"));
         descCol.setCellValueFactory(new PropertyValueFactory<Book,String>("desc"));
@@ -108,6 +120,29 @@ public class ListController implements Initializable {
         );
         amountText.setTextFormatter(formatter);
         loadData();
+        bookTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Book>() {
+            @Override
+            public void changed(ObservableValue<? extends Book> observableValue, Book book, Book t1) {
+                if(t1 == null){
+                    rentBtn.setDisable(true);
+                    return;
+                }
+                rentBtn.setDisable(false);
+                selectedBook.setId(t1.getId());
+                categoriesChoice.getCheckModel().clearChecks();
+                nameText.setText(t1.getName());
+                authorText.setText(t1.getAuthor());
+                amountText.setText(String.valueOf(t1.getAmount()));
+                descText.setText(t1.getDesc());
+                t1.getCategories().forEach(category -> {
+                    for(int t = 0;t<categoriesList.size();t++){
+                        if(t1.getCategoryIds().contains(categoriesList.get(t).getId())){
+                            categoriesChoice.getCheckModel().check(t);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     public void addBook() {
@@ -133,5 +168,38 @@ public class ListController implements Initializable {
     public void deleteBook() throws SQLException {
         dbHandle.delete(bookTable.getSelectionModel().getSelectedItem());
         loadData();
+    }
+
+    public void updateBook(){
+        selectedBook.setName(nameText.getText());
+        selectedBook.setAuthor(authorText.getText());
+        selectedBook.setDesc(descText.getText());
+        selectedBook.setAmount(Integer.parseInt(amountText.getText().replace(",","")));
+        selectedBook.setCategories(new ArrayList<>(categoriesChoice.getCheckModel().getCheckedItems()));
+        try {
+            dbHandle.update(selectedBook);
+            nameText.setText("");
+            authorText.setText("");
+            descText.setText("");
+            amountText.setText("0");
+            categoriesChoice.getCheckModel().clearChecks();
+        } catch (SQLException ignored) {
+        } finally {
+            loadData();
+        }
+    }
+    public void rentBook(ActionEvent event){
+        Rent rent = new Rent(selectedBook.getId(),DataHolder.getInstance().getUser().getId());
+        try {
+            dbHandle.insert(rent);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"");
+            alert.initOwner(((Node)event.getSource()).getScene().getWindow());
+            alert.getDialogPane().setHeaderText("Mượn thành công");
+            alert.showAndWait();
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"");
+            alert.getDialogPane().setContentText("Có lỗi sảy ra");
+            alert.showAndWait();
+        }
     }
 }

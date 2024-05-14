@@ -47,4 +47,5 @@ CREATE TABLE IF NOT EXISTS book_category (
   FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
-INSERT INTO users VALUES (1, 'cuong', 'admin', '$2a$10$RV3xeeBiXU0hvseJKAv58OjKwFUgU1VdDRSIboMeGSs0W.5HvAy8W',22,1); -- password:1
+INSERT INTO users VALUES (1, 'admin', 'admin@admin.com', '$2a$10$RV3xeeBiXU0hvseJKAv58OjKwFUgU1VdDRSIboMeGSs0W.5HvAy8W',22,1); -- password:1
+INSERT INTO users VALUES (2, 'user', 'user@admin.com', '$2a$10$RV3xeeBiXU0hvseJKAv58OjKwFUgU1VdDRSIboMeGSs0W.5HvAy8W',22,2); -- password:1

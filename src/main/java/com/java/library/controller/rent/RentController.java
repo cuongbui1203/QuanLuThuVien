@@ -169,7 +169,6 @@ public class RentController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,"");
             alert.initOwner(((Node)event.getSource()).getScene().getWindow());
             alert.getDialogPane().setHeaderText("Mượn thành công");
-//            alert.getDialogPane().setContentText(MessageFormat.format("Người dùng {0} đã mượn 1 cuốn sách {1}",user.getName(),book.getName()));
             alert.showAndWait();
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR,"");

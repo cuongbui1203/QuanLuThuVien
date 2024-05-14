@@ -15,8 +15,10 @@
    <top>
        <MenuBar BorderPane.alignment="CENTER">
            <Menu mnemonicParsing="false" text="Người dùng">
-               <MenuItem mnemonicParsing="false" onAction="#onListAccounts" text="Danh sách người đọc" />
-               <MenuItem mnemonicParsing="false" onAction="#addNewAccount" text="Thêm mới" />
+            <MenuItem mnemonicParsing="false" onAction="#onAccountInfo" text="Thông tin người dùng" />
+               <MenuItem fx:id="listAccount" mnemonicParsing="false" onAction="#onListAccounts" text="Danh sách người đọc" />
+               <MenuItem fx:id="newAccount" mnemonicParsing="false" onAction="#addNewAccount" text="Thêm mới" />
+            <MenuItem mnemonicParsing="false" onAction="#logout" text="Đăng xuất" />
            </Menu>
            <Menu mnemonicParsing="false" text="Sách">
                <MenuItem mnemonicParsing="false" onAction="#onListBooks" text="Danh sách sách" />
@@ -28,11 +30,12 @@
                <MenuItem mnemonicParsing="false" onAction="#onSearchBookOverCategory" text="Tìm kiếm sách theo thể loại" />
             </items>
          </Menu>
-           <Menu mnemonicParsing="false" text="Mượn Trả">
+           <Menu fx:id="muonTra" mnemonicParsing="false" text="Mượn Trả">
+            <MenuItem mnemonicParsing="false" onAction="#onListRent" text="Danh sach" />
                <MenuItem mnemonicParsing="false" onAction="#onRentBook" text="Mượn sách" />
-            <MenuItem mnemonicParsing="false" text="Trả sách" />
+            <MenuItem mnemonicParsing="false" onAction="#onReturnBook" text="Trả sách" />
            </Menu>
-         <Menu mnemonicParsing="false" text="Thống kê">
+         <Menu fx:id="thongKe" mnemonicParsing="false" text="Thống kê">
             <items>
                <MenuItem mnemonicParsing="false" onAction="#onStatistical" text="Thống kê mượn trả" />
             </items>

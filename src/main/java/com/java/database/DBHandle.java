@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DBHandle implements AutoCloseable {
     private static DBHandle instance;
@@ -28,8 +29,7 @@ public class DBHandle implements AutoCloseable {
         try {
             this.conn = DriverManager.getConnection(url);
             this.statement = this.conn.createStatement();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ignored) {
         }
     }
 
@@ -41,13 +41,12 @@ public class DBHandle implements AutoCloseable {
     }
 
     public User find(int id){
-        
         User userRes = null;
-        String query = MessageFormat.format("SELECT * FROM {0} WHERE id=?", DBHandle.USERS);
         try {
-            PreparedStatement statement1 = this.conn.prepareStatement(query);
+            String query = MessageFormat.format("SELECT * FROM {0} WHERE id=?", DBHandle.USERS);
+            PreparedStatement statement1 = conn.prepareStatement(query);
             statement1.setInt(1,id);
-            ResultSet res = this.statement.executeQuery(query);
+            ResultSet res = statement1.executeQuery();
             if(res.next()) {
                 userRes =  new User(
                         res.getInt("id"),
@@ -57,7 +56,7 @@ public class DBHandle implements AutoCloseable {
                         res.getInt("role_id")
                 );
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
         
         return userRes;
@@ -84,7 +83,7 @@ public class DBHandle implements AutoCloseable {
                     );
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
         
         return userRes;
@@ -94,11 +93,25 @@ public class DBHandle implements AutoCloseable {
         String query;
         if(table.equals(DBHandle.CATEGORIES)){
             query = MessageFormat.format("select c.*,(select count(*) from {0} b where b.category_id=c.id) as amount from {1} c;",DBHandle.BOOK_CATEGORY,DBHandle.CATEGORIES);
-        }else {
+        } else if (table.equals(DBHandle.RENTS)) {
+            query = MessageFormat.format("select r.*,u.name as user_name,b.name as book_name from {0} r inner join {1} u on user_id = u.id inner join {2} b on r.book_id=b.id where return_date is null;",
+                    DBHandle.RENTS,
+                    DBHandle.USERS,
+                    DBHandle.BOOKS
+            );
+        } else {
             query = "SELECT * FROM " + table;
         }
-        ResultSet res = statement.executeQuery(query);
-        return res;
+        return statement.executeQuery(query);
+    }
+
+    public ResultSet allRent() throws SQLException {
+        String query = MessageFormat.format("select r.*,u.name as user_name,b.name as book_name from {0} r inner join {1} u on user_id = u.id inner join {2} b on r.book_id=b.id",
+                DBHandle.RENTS,
+                DBHandle.USERS,
+                DBHandle.BOOKS
+        );
+        return statement.executeQuery(query);
     }
 
     public void insert(@NotNull BookCategory category) throws SQLException {
@@ -199,6 +212,14 @@ public class DBHandle implements AutoCloseable {
         preparedStatement2.execute();
     }
 
+    public boolean returnBook(int id) throws SQLException {
+        String query = MessageFormat.format("Update {0} set return_date = ? where id = ?",DBHandle.RENTS);
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setTimestamp(1,new Timestamp(Calendar.getInstance().getTime().getTime()));
+        preparedStatement.setInt(2,id);
+        return preparedStatement.execute();
+    }
+
     public ResultSet searchBook(String name)throws SQLException {
         String query = MessageFormat.format("SELECT * FROM {0} WHERE name LIKE ''%{1}%''", DBHandle.BOOKS, name);
         PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -211,14 +232,46 @@ public class DBHandle implements AutoCloseable {
         preparedStatement.setInt(1,book.getId());
         return preparedStatement.executeQuery();
     }
-
+    public void update(@NotNull User u) throws SQLException {
+        String query = MessageFormat.format("UPDATE {0} SET name = ?,age = ?,role_id = ? where id = ?",DBHandle.USERS);
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1,u.getName());
+        preparedStatement.setInt(2,u.getAge());
+        preparedStatement.setInt(3,u.getRoleId());
+        preparedStatement.setInt(4,u.getId());
+        preparedStatement.executeUpdate();
+    }
+    public void update(@NotNull Book book) throws SQLException {
+        String query = "DELETE FROM "+BOOKS+" WHERE id=?";
+        String query1 = "DELETE FROM "+BOOK_CATEGORY+" WHERE book_id=?";
+        PreparedStatement preparedStatement =  conn.prepareStatement(query);
+        PreparedStatement preparedStatement1 =  conn.prepareStatement(query1);
+        preparedStatement.setInt(1,book.getId());
+        preparedStatement1.setInt(1,book.getId());
+        preparedStatement.execute();
+        preparedStatement1.execute();
+        insert(book);
+    }
+    public int countRentBook() throws SQLException {
+        String query  = MessageFormat.format("select count(*) as total from {0} where return_date is null",DBHandle.RENTS);
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        ResultSet res =  preparedStatement.executeQuery();
+        res.next();
+        return res.getInt("Total");
+    }
+    public int countReturnBook() throws SQLException {
+        String query  = MessageFormat.format("select count(*) as total from {0} where return_date is not null",DBHandle.RENTS);
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        ResultSet res =  preparedStatement.executeQuery();
+        res.next();
+        return res.getInt("Total");
+    }
     public static void main(String[] args) throws SQLException {
         DBHandle dbHandle = DBHandle.getInstance();
     }
 
     @Override
     public void close() throws Exception {
-        System.out.println("connection close");
         this.conn.close();
     }
 }

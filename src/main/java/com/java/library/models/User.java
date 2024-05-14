@@ -21,7 +21,9 @@ public class User {
         this.role = role;
     }
     public User(){}
-
+    public  User(int id){
+        this.id = id;
+    }
     public int getId() {
         return id;
     }
